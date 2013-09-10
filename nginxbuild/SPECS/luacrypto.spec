@@ -7,6 +7,7 @@ License:	MIT
 URL:		https://github.com/mkottman/luacrypto/
 Source0:	luacrypto-%{version}.tar.gz
 BuildRoot:	%(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
+BuildRequires: lua-devel
 
 %description
 LuaCrypto is an OpenSSL wrapper library for lua 5.1. This

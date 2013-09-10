@@ -30,17 +30,14 @@ Group: System Environment/Daemons
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires: zlib-devel
 BuildRequires: pcre-devel
-BuildRequires: perl
-%if 0%{?suse_version}
-BuildRequires: libopenssl-devel
-Requires(pre): pwdutils
-%else
 BuildRequires: openssl-devel
+BuildRequires: perl
+BuildRequires: GeoIP-devel
 Requires: initscripts >= 8.36
 Requires: libluajit >= 2.0.2
+Requires: openssl >= 1.0.1
 Requires(pre): shadow-utils
 Requires(post): chkconfig
-%endif
 Provides: webserver
 
 %description
@@ -85,11 +82,11 @@ a mail proxy server
         --with-file-aio \
         --with-ipv6 \
         --with-cc-opt="%{optflags} $(pcre-config --cflags)" \
-	--add-module=$HOME/rpmbuild/EXTRA/ngx_pagespeed-release-1.5.27.3-beta \
-	--add-module=$HOME/rpmbuild/EXTRA/ngx_devel_kit-0.2.18 \
-	--add-module=$HOME/rpmbuild/EXTRA/lua-nginx-module-0.8.3 \
-	--add-module=$HOME/rpmbuild/EXTRA/echo-nginx-module-0.45 \
-	--add-module=$HOME/rpmbuild/EXTRA/headers-more-nginx-module-0.21 \
+	--add-module=%{_topdir}/EXTRA/ngx_pagespeed-release-1.5.27.3-beta \
+	--add-module=%{_topdir}/EXTRA/ngx_devel_kit-0.2.18 \
+	--add-module=%{_topdir}/EXTRA/lua-nginx-module-0.8.3 \
+	--add-module=%{_topdir}/EXTRA/echo-nginx-module-0.45 \
+	--add-module=%{_topdir}/EXTRA/headers-more-nginx-module-0.21 \
         $*
 make %{?_smp_mflags}
 
