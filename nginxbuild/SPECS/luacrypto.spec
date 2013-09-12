@@ -27,15 +27,15 @@ make %{?_smp_mflags}
 #should be lib64, I don't want to depend on the lua package, and libluajit
 #doesn't even define it
 %define actuallib /usr/lib64
-#%define actuallib %(pkg-config --variable=libdir luajit)
+%define prevlib /usr/lib
 
 %install
 rm -rf %{buildroot}
 make install DESTDIR=%{buildroot}
 
 mkdir -p %{buildroot}%{actuallib}/lua/5.1
-mv %{buildroot}%{actuallib}/crypto.so %{buildroot}%{actuallib}/lua/5.1
-rm -f %{buildroot}%{actuallib}/crypto.la
+mv %{buildroot}%{prevlib}/crypto.so %{buildroot}%{actuallib}/lua/5.1
+rm -f %{buildroot}%{prevlib}/crypto.la
 
 %clean
 rm -rf %{buildroot}
