@@ -1,6 +1,6 @@
 Name:		luacrypto
 Version:	0.3.2
-Release:	1%{?dist}.cio
+Release:	2%{?dist}.cio
 Summary:	OpenSSL wrapper library for lua
 
 License:	MIT
@@ -23,7 +23,11 @@ in a different place then the normal lua package for CentOS 6.
 %configure
 make %{?_smp_mflags}
 
-%define actuallib %(pkg-config --variable=libdir luajit)
+#I wish I didn't have to hardcode this, but luajit's libdir is /usr/lib when it
+#should be lib64, I don't want to depend on the lua package, and libluajit
+#doesn't even define it
+%define actuallib /usr/lib64
+#%define actuallib %(pkg-config --variable=libdir luajit)
 
 %install
 rm -rf %{buildroot}
